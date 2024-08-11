@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %} {% block title %} Categories {% endblock %} {%
+block body %}
+<p>
+  <a class="btn btn-primary" href="{{ path('admin.categorie.create') }}"
+    >Ajouter une categorie</a
+  >
+</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Categories</th>
+      <th>Edité</th>
+      <th>Supprimer</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for categorie in categories %}
+
+    <tr>
+      <td>
+        <a href="#">{{ categorie.name }}</a>
+      </td>
+      <td>
+        <a
+          class="btn btn-primary"
+          href="{{ path('admin.categorie.update', { id: categorie.id }) }}"
+          >Edité</a
+        >
+      </td>
+      <td>
+        <a
+          class="btn btn-danger"
+          href="{{ path('admin.categorie.delete', { id: categorie.id }) }}"
+          >Supprimer</a
+        >
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
