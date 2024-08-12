@@ -6,10 +6,11 @@ use App\Entity\Category;
 use App\Form\CategoryFormType;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Requirement\Requirement;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 #[Route('admin/categories', name: 'admin.categorie.')]
@@ -57,7 +58,7 @@ class CategoryController extends AbstractController
     /**
      * this function help us to update category
      */
-    #[Route('/update/{id}', name: 'update')]
+    #[Route('/update/{id}', name: 'update', requirements: ['id' => Requirement::DIGITS])]
     public function update(
         Request $request,
         EntityManagerInterface $entityManagerInterface,
@@ -82,7 +83,7 @@ class CategoryController extends AbstractController
     /**
      * this function can delete category
      */
-    #[Route('/delete/{id}', name: 'delete')]
+    #[Route('/delete/{id}', name: 'delete', requirements: ['id' => Requirement::DIGITS])]
     public function delete(
 
         EntityManagerInterface $entityManagerInterface,

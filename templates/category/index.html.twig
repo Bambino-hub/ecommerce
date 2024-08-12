@@ -29,6 +29,7 @@ block body %}
       </td>
       <td>
         <a
+          onclick="return confirm('Voulez-vous vraiment supprimer cette catégorie ?')"
           class="btn btn-danger"
           href="{{ path('admin.categorie.delete', { id: categorie.id }) }}"
           >Supprimer</a
