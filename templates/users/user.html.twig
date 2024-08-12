@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %} {% block title %} Users!{% endblock %} {% block
+body %}
+<p></p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>Role</th>
+      <th>action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for user in users %}
+
+    <tr>
+      <td>
+        {{ user.id }}
+      </td>
+      <td>
+        {{ user.firstname }}
+      </td>
+      <td>
+        {{ user.lastname }}
+      </td>
+      <td>
+        {{ user.email }}
+      </td>
+      <td>
+        {% if ( 'ROLE_ADMIN' in user.roles) %} Administrateur {% elseif (
+        'ROLE_EDITOR' in user.roles) %} Editeur {% else %} Client {% endif %}
+      </td>
+      {# {% for role in user.roles %}
+      <td>
+        {{ role }}
+      </td>
+
+      {% endfor %} #}
+
+      <td>
+        {% if ( 'ROLE_ADMIN' in user.roles) == false %}
+
+        <div class="row">
+          <div class="col">
+            {% if ( 'ROLE_EDITOR' in user.roles) == false %}
+            <a
+              onclick="return confirm('Voulez-vous vraiment affecter le role éditeur à cet utilisateur ?')"
+              class="btn btn-primary"
+              href="{{ path('ecommerce.role', { id: user.id }) }}"
+              >Ajouter un role</a
+            >
+            {% else %}
+            <a
+              onclick="return confirm('Voulez-vous vraiment retiré le role éditeur cet utilisateur ?')"
+              class="btn btn-danger"
+              href="{{ path('ecommerce.role.remove', { id: user.id }) }}"
+              >retiré le role</a
+            >
+            {% endif %}
+          </div>
+
+          <div class="col">
+            <a
+              onclick="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?')"
+              class="btn btn-danger"
+              href="{{ path('ecommerce.user.remove', { id: user.id }) }}"
+              >Supprimer</a
+            >
+          </div>
+        </div>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
