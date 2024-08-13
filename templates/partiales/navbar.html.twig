@@ -32,18 +32,27 @@
               Administration
             </a>
             <ul class="dropdown-menu">
-              <li class="nav-item me-5">
-                <a class="nav-link" href="{{ path('admin.categorie.home') }}"
-                  >Category</a
-                >
-              </li>
               <li>
                 <a class="dropdown-item" href="{{ path('ecommerce.users') }}"
                   >Utilisateur</a
                 >
               </li>
+              <li class="nav-item me-5">
+                <a class="nav-link" href="{{ path('admin.categorie.home') }}"
+                  >Category</a
+                >
+              </li>
+              <li class="nav-item me-5">
+                <a class="nav-link" href="{{ path('app_sub_category_index') }}"
+                  >Sous Categorie</a
+                >
+              </li>
               <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
+              <li>
+                <a class="dropdown-item" href="{{ path('app_product_index') }}"
+                  >les produits</a
+                >
+              </li>
             </ul>
           </li>
           {% endif %} {% if is_granted('ROLE_USER') == false %}
