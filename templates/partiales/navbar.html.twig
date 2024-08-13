@@ -21,7 +21,7 @@
         <ul class="navbar-nav">
           {% if is_granted('ROLE_ADMIN') %}
 
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown me-5">
             <a
               class="nav-link dropdown-toggle"
               href="#"
@@ -46,16 +46,19 @@
               <li><a class="dropdown-item" href="#">Something else here</a></li>
             </ul>
           </li>
-          {% endif %}
+          {% endif %} {% if is_granted('ROLE_USER') == false %}
+
           <li class="nav-item me-5">
             <a class="nav-link" href="{{ path('app_register') }}">Register</a>
           </li>
           <li class="nav-item me-5">
             <a class="nav-link" href="{{ path('app_login') }}">Login</a>
           </li>
+          {% else %}
           <li class="nav-item me-5">
             <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
           </li>
+          {% endif %}
         </ul>
       </div>
     </div>
