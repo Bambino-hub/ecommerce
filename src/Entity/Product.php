@@ -7,8 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints\Image;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
+#[Vich\Uploadable]
 class Product
 {
     #[ORM\Id]
@@ -30,6 +34,14 @@ class Product
      */
     #[ORM\ManyToMany(targetEntity: SubCategory::class, inversedBy: 'products')]
     private Collection $subcategories;
+
+
+    #[Vich\UploadableField(mapping: 'products', fileNameProperty: 'image')]
+    private ?File $imagefile = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    #[Image()]
+    private ?string $image = null;
 
     public function __construct()
     {
@@ -97,6 +109,36 @@ class Product
     public function removeSubcategory(SubCategory $subcategory): static
     {
         $this->subcategories->removeElement($subcategory);
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): static
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of imagefile
+     */
+    public function getImagefile(): ?File
+    {
+        return $this->imagefile;
+    }
+
+    /**
+     * Set the value of imagefile
+     */
+    public function setImagefile(?File $imagefile): self
+    {
+        $this->imagefile = $imagefile;
 
         return $this;
     }

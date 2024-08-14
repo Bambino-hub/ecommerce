@@ -20,6 +20,13 @@ body %}
       <th>Price</th>
       <td>{{ product.price }}</td>
     </tr>
+    <tr>
+      <th>Image</th>
+      <td>
+        <img src="{{ vich_uploader_asset(product, "imagefile") }}"
+        alt="l'image">
+      </td>
+    </tr>
   </tbody>
 </table>
 
