@@ -18,8 +18,10 @@ class ProductType extends AbstractType
             ->add('name')
             ->add('discription')
             ->add('price')
+            // ->add('stock')
             ->add('imagefile', FileType::class, [
-                'label' => "L'image de du produit"
+                'label' => "L'image de du produit",
+                'required' => false
             ])
             ->add('subcategories', EntityType::class, [
                 'label' => " sous categorie",

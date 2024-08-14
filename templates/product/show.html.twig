@@ -35,9 +35,12 @@ body %}
 >
 
 <a
-  class="btn btn-secondary"
+  class="btn btn-warning"
   href="{{ path('app_product_edit', { id: product.id }) }}"
   >edit</a
+>
+<a class="btn btn-secondary" href="{{ path('app_histry', { id: product.id }) }}"
+  >Voir l'historique</a
 >
 
 {{ include("product/_delete_form.html.twig") }}

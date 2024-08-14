@@ -20,7 +20,7 @@ class Product
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
@@ -43,9 +43,19 @@ class Product
     #[Image()]
     private ?string $image = null;
 
+    #[ORM\Column]
+    private ?int $stock = null;
+
+    /**
+     * @var Collection<int, ProductHIstry>
+     */
+    #[ORM\OneToMany(targetEntity: ProductHIstry::class, mappedBy: 'product')]
+    private Collection $productHIstries;
+
     public function __construct()
     {
         $this->subcategories = new ArrayCollection();
+        $this->productHIstries = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -139,6 +149,48 @@ class Product
     public function setImagefile(?File $imagefile): self
     {
         $this->imagefile = $imagefile;
+
+        return $this;
+    }
+
+    public function getStock(): ?int
+    {
+        return $this->stock;
+    }
+
+    public function setStock(int $stock): static
+    {
+        $this->stock = $stock;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProductHIstry>
+     */
+    public function getProductHIstries(): Collection
+    {
+        return $this->productHIstries;
+    }
+
+    public function addProductHIstry(ProductHIstry $productHIstry): static
+    {
+        if (!$this->productHIstries->contains($productHIstry)) {
+            $this->productHIstries->add($productHIstry);
+            $productHIstry->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductHIstry(ProductHIstry $productHIstry): static
+    {
+        if ($this->productHIstries->removeElement($productHIstry)) {
+            // set the owning side to null (unless already changed)
+            if ($productHIstry->getProduct() === $this) {
+                $productHIstry->setProduct(null);
+            }
+        }
 
         return $this;
     }

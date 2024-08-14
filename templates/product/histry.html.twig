@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %} {% block title %}Historique du product {%
+endblock %} {% block body %}
+<table class="table">
+  <thead>
+    <th>Name</th>
+    <th>Quantité</th>
+    <th>Date D'ajout</th>
+  </thead>
+  <tbody>
+    {% for histry in histrys %}
+
+    <tr>
+      <td>{{ histry.product.name }}</td>
+      <td>{{ histry.qte }}</td>
+      <td>{{ histry.createdAt | date }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<a class="btn btn-primary" href="{{ path('app_product_index') }}"
+  >back to list</a
+>
+{% endblock %}
