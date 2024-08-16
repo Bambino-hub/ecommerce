@@ -1,0 +1,32 @@
+{% extends "base.html.twig" %} {% block title %}filter{% endblock %} {% block
+body %}
+
+<h1>
+  Voici la liste des produit pour la sous categorie {{ subcategorie.name }}
+</h1>
+
+<div class="row">
+  {% for product in products %}
+  <div class="col-sm-4">
+    <div class="card" style="width: 18rem">
+      <img src="{{ vich_uploader_asset(product, "imagefile") }}"
+      alt="product_image">
+      <div class="card-body">
+        <a href="{{ path('ecommerce.home.show', { id: product.id }) }}">
+          <h5 class="card-title">{{ product.name }}</h5>
+        </a>
+        <p class="card-text">
+          {{product.discription | slice(0,50)}}
+        </p>
+        <p>Price {{ product.price }}$</p>
+        <a class="btn btn-success" href="#" class="btn btn-primary"
+          >Ajouter au panier</a
+        >
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <p>Pas de produits trouver pour la sous categorie {{ subcategorie.name }}</p>
+  {% endfor %}
+</div>
+{% endblock %}
