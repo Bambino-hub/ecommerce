@@ -160,7 +160,7 @@
                 {{product.discription | slice(0,50)}}
               </p>
               <p>Price {{product.price}}$</p>
-              <a class="btn btn-success" href="#" class="btn btn-primary"
+              <a class="btn btn-success" href="{{path('app_add_to_cart',{id: product.id })}}" class="btn btn-primary"
                 >Ajouter au panier</a
               >
             </div>
