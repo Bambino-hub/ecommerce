@@ -34,7 +34,9 @@
 {% if total > 0 %}
 
 <h2 class="mt-3">Total: {{ total }}$</h2>
-<a href="" class="btn btn-outline-primary me-3">Valider la commande</a>
+<a href="{{ path('app_order') }}" class="btn btn-outline-primary me-3"
+  >Valider la commande</a
+>
 <a href="{{ path('app_remove_cart') }}" class="btn btn-outline-danger"
   >Supprimer la commande</a
 >

@@ -1,0 +1,68 @@
+{% extends "base.html.twig" %} {% block title %}all order{% endblock %} {% block
+body %}
+<h1>Our all order</h1>
+
+{% for order in orders %}
+
+<h2>Command n:{{ order.id }}</h2>
+{% if order.isCompleted == true %}
+<span class="text-success">Commande livrée</span>
+{% else %}
+<span class="text-danger">Commande non livrée</span>
+{% endif %}
+
+<h3>Information du client</h3>
+<table class="table">
+  <thead>
+    <th>firstname</th>
+    <th>lastname</th>
+    <th>telephone</th>
+    <th>Adress</th>
+    <th>ville</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{ order.firstname }}</td>
+      <td>{{ order.lastname }}</td>
+      <td>{{ order.telephone }}</td>
+      <td>{{ order.address }}</td>
+      <td>{{ order.city.name }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Corps de la commande</h4>
+<table class="table">
+  <thead>
+    <th>Product name</th>
+    <th>Pix unitaire</th>
+    <th>Product quantity</th>
+  </thead>
+  <tbody>
+    {% for product in order.orderProducts %}
+    <tr>
+      <td>{{ product.product.name }}</td>
+      <td>{{ product.product.Price }}</td>
+      <td>{{ product.qte }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<p>prix de livraison</p>
+<p>{{ order.city.shinppingcost }} $</p>
+
+<h5>Total à payé</h5>
+<p>{{ order.totalPrice }} $</p>
+{% if order.isCompleted != true %}
+<a
+  href="{{ path('app_iscompleted_update', { id: order.id }) }}"
+  class="btn btn-outline-primary me-3"
+  >Marquer comme livrée</a
+>
+{% endif %}
+<a
+  href="{{ path('app_order_remove', { id: order.id }) }}"
+  class="btn btn-outline-danger"
+  >Supprimer la commande</a
+>
+{% endfor %} {% endblock %}

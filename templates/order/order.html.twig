@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %} {% block title %}Hello OrderController!{%
+endblock %} {% block body %}
+<div class="row">
+  <div class="col-8">
+    {{ form(form) }}
+  </div>
+  <div class="col-4">
+    Montant a payer: <br />
+    <br />
+    <br />
+    {{ total }} $<br />
+    <br />
+    <br />
+    <p>frais de livraison</p>
+  </div>
+</div>
+{% endblock %}

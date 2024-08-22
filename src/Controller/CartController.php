@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Repository\ProductRepository;
+use App\Service\Cart;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -15,25 +16,14 @@ class CartController extends AbstractController
 
 
     #[Route('/cart', name: 'app_cart', methods: ['GET'])]
-    public function index(SessionInterface $sessionInterface): Response
+    public function index(SessionInterface $sessionInterface, Cart $cart): Response
     {
-        $cart = $sessionInterface->get('cart');
-        $CartWithData = [];
 
-        foreach ($cart as $id => $quantity) {
-            $CartWithData[] = [
-                'product'  => $this->productRepository->find($id),
-                'quantity' => $quantity
-            ];
-        }
-
-        $total = array_sum(array_map(function ($items) {
-            return $items['product']->getPrice() * $items['quantity'];
-        }, $CartWithData));
+        $data = $cart->getCart($sessionInterface);
 
         return $this->render('cart/index.html.twig', [
-            'cardWithDatas' => $CartWithData,
-            'total' => $total
+            'cardWithDatas' => $data['cart'],
+            'total' => $data['total']
         ]);
     }
 
